@@ -1,0 +1,22 @@
+version:  '3'
+
+services:
+ims_django_dock:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - static_vol:/ims_django_dock/web/static
+    ports:
+      - "8000:8000"
+  
+  nginx: 
+    build: ./nginx
+    volumes:
+      - static_vol:/ims_django_dock/web/static
+    ports:
+      - "80:80"
+    depends_on:
+      - ims_django_dock
+volumes:
+  static_vol:
